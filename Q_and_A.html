@@ -2,23 +2,33 @@
 <html lang="en">
   <head>
     
-    <header class = "top-header">
-        
-    </header> 
-    
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="Q_and_A.css" />
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Q And A</title>
     
-
-    <!-- Import the webpage's stylesheet -->
-    <link rel="stylesheet" href="Q_and_A.css" />
-
-    
   </head>
   <body>
-   
+    <header class = "top-header">
+        <div class="header-wrapper" role="menubar">
+            <h1 class="header-title menu-item">Q and A</h1> 
+            <form class="search-bar menu-item">
+                <input id="question-search" type="text">
+            </form>
+        </div>
+    </header> 
+    <div class="questions-wrapper">
+        <h2 class="questions-title">Todas las preguntas</h2>
+        <ul class="questions-list">
+            <li class="question" >
+                <h2>¿Cómo puedo iterar sobre una lista en python?</h2>
+                <h4>Estoy intentando iterar sobre una lista...</h4>
+            </li>
+        </ul>
+    </div>
   </body>
   <script src="Q_and_A.js"></script>
 </html>

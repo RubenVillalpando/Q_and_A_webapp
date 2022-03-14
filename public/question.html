@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="css/question.css" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Q And A</title>
+    
+  </head>
+  <body>
+    <header class = "top-header">
+        <div class="header-wrapper" role="menubar">
+            <h1 class="header-title menu-item">Q and A</h1> 
+            <form class="search-bar menu-item">
+                <input id="question-search" type="text" placeholder="Busca una pregunta...">
+            </form>
+        </div>
+    </header> 
+    <div class="questions-header">
+      <button id="new-answer-btn" class="answer-btn">Responder</button>
+    </div>
+    <div id="new-answer-form-wrapper" class="new-answer" hidden>
+      <textarea id="new-answer-description-input" class="new-question-form description" type="text" placeholder="Responde de la manera más detallada posible"></textarea>
+    </div>
+    <div id="all-questions-wrapper" class="question-answers-wrapper">
+        <div class="question-wrapper">
+            <h2 class="question-title">oli</h2>
+            <h4 class="question-description">si esto no me da trabajo me mato</h6>
+        </div>
+        <ul class="answers-list">
+        </ul>
+    </div>
+    <button id="submit-question-btn" class="submit-info-btn ask" hidden>Enviar</button>
+  <script src="js/question.js" type="text/javascript" onload="main()"></script>
+  </body>
+  
+</html>
+

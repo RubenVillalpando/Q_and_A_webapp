@@ -10,7 +10,7 @@ Fastify framework for the backend and sqlite for the database, with javascript, 
 
 1. first clone the repository to a local repository using the following command
 
-```git clone https://github.com/RubenVillalpando/Q_and_A_webapp.git```
+`git clone https://github.com/RubenVillalpando/Q_and_A_webapp.git`
 
 2. open the project using vscode
 

@@ -9,7 +9,7 @@ const url = 'http://127.0.0.1:4000';
 
 function main(){
     loadQuestionInfo();
-    fetchAnswers('');
+    fetchAnswers();
     generateEvents();
 }
 
@@ -30,6 +30,10 @@ function generateNewAnswer(){
 
 function submitAnswer(){
     const description = document.getElementById("new-answer-description-input").value;
+    if (!description){
+        window.alert("Este campo no puede estar vacío");
+        return;
+    }
     const id = Number(urlParams.get('id'));
     let request = new Request(url+"/answers", {
         method: 'POST',
@@ -52,7 +56,7 @@ function submitAnswer(){
 }
 
 
-function fetchAnswers(query){
+function fetchAnswers(){
     let id = urlParams.get('id');
     let request = new Request(url+"/answers"+"?id="+id, {
         method: 'GET',

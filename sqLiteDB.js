@@ -37,10 +37,18 @@ dbWrapper
 // Server script calls these methods to connect to the db
 module.exports = {
 
-// Get the messages in the database
-getQuestions: async () => {
+// Get the questions that match a query in the database
+getQuestions: async query => {
     try {
-        let data = await db.all("SELECT * from Questions");
+        let data = {}
+        if(query){
+            let keywords = query.split(" ");
+            let sqlQuery = "SELECT * from Questions WHERE title LIKE " + "'%" + keywords[0] + "%'";
+            for (let i = 1; i < keywords.length; i++){
+                sqlQuery += " OR title LIKE " + "'%" + keywords[i] + "%'";
+            }
+            data = await db.all(sqlQuery);
+        } else data = await db.all("SELECT * from Questions");
         return data
     } catch (dbError) {
         console.log("hubo un error lol")
@@ -48,7 +56,7 @@ getQuestions: async () => {
     }
 },
 
-// Add new message
+// Add new question
 addQuestion: async question => {
     let success = false;
     try {
@@ -64,7 +72,7 @@ addQuestion: async question => {
     return success.changes > 0 ? true : false;
 },
 
-// Remove message
+// adds an answer to the question being shown
 addAnswer: async answer => {
     let success = false;
     try {
@@ -79,6 +87,7 @@ addAnswer: async answer => {
     return success.changes > 0 ? true : false;
 },
 
+//gets all the answers for the current question
 getAnswers: async question_id => {
     try {
         let data = await db.all("SELECT * from Answers WHERE question_id= ?", question_id);

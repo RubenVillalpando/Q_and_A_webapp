@@ -10,7 +10,7 @@ const url = 'http://127.0.0.1:4000';
 
 
 function main(){
-    fetchQuestions('');
+    fetchQuestions();
     generateEvents();
 }
 
@@ -18,6 +18,7 @@ function main(){
 function generateEvents(){
     newQuestionBtn.onclick=generateNewQuestion;
     submitQuestionBtn.onclick=submitQuestion;
+    searchInput.oninput = fetchQuestions;
 }
 
 
@@ -33,6 +34,10 @@ function generateNewQuestion(){
 function submitQuestion(){
     const title = document.getElementById("new-question-input").value;
     const description = document.getElementById("new-question-description-input").value;
+    if (!description || !title){
+        window.alert("Todos los campos deben estar llenos!");
+        return;
+    }
     let request = new Request(url+"/questions", {
         method: 'POST',
         body: JSON.stringify({
@@ -54,8 +59,9 @@ function submitQuestion(){
 }
 
 
-function fetchQuestions(query){
-    let request = new Request(url+"/questions", {
+function fetchQuestions(){
+    let query = searchInput.value;
+    let request = new Request(url+"/questions?search="+query, {
         method: 'GET',
         mode: 'cors'
     })
@@ -76,6 +82,7 @@ function fetchQuestions(query){
 function displayQuestions(responseBody){
     let questionList = document.querySelector("ul.questions-list");
     if (responseBody === null) return;
+    while (questionList.firstChild) questionList.removeChild(questionList.firstChild) ;
     responseBody.sort(function(a,b){
         return new Date(b.date) - new Date(a.date);
     })
@@ -90,7 +97,7 @@ function displayQuestions(responseBody){
         h4.textContent = question.description;
         let a = document.createElement("a");
         a.href = `./question.html?id=${question.id}&title=${question.title}&description=${question.description}`
-        a.textContent= "view";
+        a.textContent= "ver/responder";
         li.appendChild(p);
         li.appendChild(h2);
         li.appendChild(h4);

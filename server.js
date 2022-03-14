@@ -14,25 +14,22 @@ fastify.get("/", (request, reply) => {
     reply.send({"hello": "world"});
 });
   
-  // Return the chat messages from the database helper script - no auth
+  // return all the questions from the site
 fastify.get("/questions", async (request, reply) => {
-    console.log("questions get attempted");
     let data = {};
-    data = await db.getQuestions();
+    data = await db.getQuestions(request.query.search);
     let status = data? 200: 400;
-    console.log(status);
     reply.status(status).send(data);
 });
   
-  // Add new message (auth)
+  // Add a new question submitted by a user
 fastify.post("/questions", async (request, reply) => {
-    console.log("questions post attempted");
     const success = await db.addQuestion(JSON.parse(request.body));
     const status = success? 200: 400;
     reply.status(status).send(data);
 });
   
-// Update text for an message (auth)
+// post a new answer
 fastify.post("/answers", async (request, reply) => { 
     let data = {};
     const success = await db.addAnswer(JSON.parse(request.body)); 
@@ -40,13 +37,11 @@ fastify.post("/answers", async (request, reply) => {
     reply.status(status).send(data);
 });
 
-
+// get all the answers to a specific question
 fastify.get("/answers", async (request, reply) => {
     let data = {};
-    console.log(request.query.id);
     data = await db.getAnswers(request.query.id);
     let status = data? 200: 400;
-    console.log(status);
     reply.status(status).send(data);
 });
   
